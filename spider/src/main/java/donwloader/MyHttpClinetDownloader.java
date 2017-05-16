@@ -41,7 +41,7 @@ public class MyHttpClinetDownloader implements Downloader {
             if (httpGet != null) {
                 HttpHost httpHost = new HttpHost(SPIDER_CONSTANT.PROXY_HOST, SPIDER_CONSTANT.PROXY_PORT);
                 RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES)
-                        .setProxy(httpHost)
+//                        .setProxy(httpHost)
                         .setConnectionRequestTimeout(SPIDER_CONSTANT.MAX_CONNECT_TIME_OUT)
                         .setSocketTimeout(SPIDER_CONSTANT.MAX_READ_TIME_OUT)
                         .build();

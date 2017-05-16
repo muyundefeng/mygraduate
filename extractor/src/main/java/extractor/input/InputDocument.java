@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class InputDocument {
 
-    private static final String FILE_DIR = "/home/lisheng/work/ExperData/htmls/people/";
+//    private static final String FILE_DIR = "/home/lisheng/work/ExperData/htmls/people/";
 
     private static Logger logger = LoggerFactory.getLogger(InputDocument.class);
 
@@ -27,7 +27,7 @@ public class InputDocument {
      * @throws IOException
      */
     @SuppressWarnings("Duplicates")
-    public static List<Text> getDefaultReadHtml() throws IOException {
+    public static List<Text> getDefaultReadHtml(String FILE_DIR) throws IOException {
         List<Text> texts = new ArrayList<Text>();
         File file = new File(FILE_DIR);
         if (!file.exists())
@@ -43,7 +43,9 @@ public class InputDocument {
                 while ((Line = bufferedReader.readLine()) != null) {
                     sourceText += Line + "\n";
                 }
+                logger.info("start prprocessing html!!");
                 String afterProcessHtml = ProcessHtmlUtils.rmSomeScript(sourceText);
+                logger.info("end preprocessing html!!");
                 Text text = new Text(afterProcessHtml);
                 texts.add(text);
             }

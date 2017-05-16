@@ -1,6 +1,5 @@
 package extractor.util;
 
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
@@ -23,7 +22,7 @@ public class ProcessHtmlUtils {
         html = html.replaceAll("(?is)<style.*?>.*?</style>", "");
         html = html.replaceAll("&.{2,5};|&#.{2,5};", " ");
         String patternStr = "<(\\w+)?(\\s[^>]+)>";
-        Pattern pattern = Pattern.compile(patternStr);
+        Pattern pattern = java.util.regex.Pattern.compile(patternStr);
 
         Matcher matcher = pattern.matcher(html);
         while (matcher.find()) {
@@ -60,8 +59,8 @@ public class ProcessHtmlUtils {
         html = html.replaceAll("<em>", "");
         html = html.replaceAll("</em>", "");
         html = html.replaceAll("<(/)?h[^>]*>", "");
-        html = html.replaceAll("<(/)?[^>]*>", "");
-//        html = html.replaceAll("(?is)<iframe[^>]*>", "");
+//        html = html.replaceAll("</[^>]*>", "");
+        html = html.replaceAll("(?is)<iframe[^>]*>", "");
         String aLabel1 = ExtraMainBodyUtils.extraMainBody(html, "<a>");//根据文本块进行判断
         String labels[] = aLabel1.split("\\n");
         for (String label : labels) {

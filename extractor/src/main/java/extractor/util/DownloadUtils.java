@@ -1,4 +1,4 @@
-package myClusterByClass;
+package extractor.util;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -44,7 +44,7 @@ public class DownloadUtils {
         String content = null;
         try {
             response = httpClient.execute(httpGet);
-            content = IOUtils.toString(response.getEntity().getContent(), "utf-8");
+            content = IOUtils.toString(response.getEntity().getContent(), "gb2312");
         } catch (IOException e) {
             logger.error(e.getMessage());
         } finally {

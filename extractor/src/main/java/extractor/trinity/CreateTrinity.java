@@ -64,6 +64,7 @@ public class CreateTrinity {
      * @param node
      */
     public void createTrinity(Node node) {
+        logger.info("starting build trinity");
         createTrinity(node, Max, Min);
     }
 

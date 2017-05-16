@@ -16,6 +16,8 @@ dependencies {
     def self_logVersion = "1.7.7"
     def jtidyVersion = "r938"
     def junitVersion = "4.12"
+    def httpclientVersion = "4.3.5"
+    def ioVersion = "2.3"
 
     compile "org.slf4j:slf4j-api:${logVersion}"
     compile "org.slf4j:slf4j-log4j12:${self_logVersion}"
@@ -23,7 +25,8 @@ dependencies {
     compile "commons-collections:commons-collections:${collectionVersion}"
     compile "net.sf.jtidy:jtidy:${jtidyVersion}"
     compile "junit:junit:${junitVersion}"
-
+    compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+    compile "commons-io:commons-io:${ioVersion}"
 
 
     testCompile group: 'junit', name: 'junit', version: '4.12'

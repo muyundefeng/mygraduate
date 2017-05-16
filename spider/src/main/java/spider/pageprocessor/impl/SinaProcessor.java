@@ -15,7 +15,7 @@ public class SinaProcessor implements PageProcessor {
 
     public Logger logger = LoggerFactory.getLogger(getClass());
 
-    public static final String HOST_NAME = "http://.*qq.com[^#]*";
+    public static final String HOST_NAME = "http://news.qq.com[^#]*";
 
     public void processor(Page page) {
         String content = page.getContent();

@@ -37,7 +37,7 @@ public class AnalyseLogDriver extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
-        String str[]= {"/home/lisheng/work/ExperData/log.log","/home/lisheng/work/ExperData/preProcessData/output1"};
+        String str[]= {"./log/spider/log/log.log","./url"};
         int exitcode = ToolRunner.run(new AnalyseLogDriver(),str);
         System.exit(exitcode);
     }

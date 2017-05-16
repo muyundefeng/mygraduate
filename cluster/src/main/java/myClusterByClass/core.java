@@ -72,12 +72,6 @@ public class core {
                             writeUrlToFile(fileName, file2Content);
                             delFile(path1);
                         }
-//                        set.add(path1);
-//                        set.add(sourceFile);
-//                        String file1Content = readUrlFromFile(sourceFile, false);
-//                        String file2Content = readUrlFromFile(path1, false);
-//                        String totalUrl = file1Content + "\n" + file2Content;
-//                        writeUrlToFile(fileName, totalUrl);
                     }
                 }
             }
@@ -220,9 +214,9 @@ public class core {
     }
 
     public static void main(String[] args) {
-        core core = new core(1000, "qq.com", 0.5, "/home/lisheng/work/ExperData/preProcessData/output1/");
+        core core = new core(1000, "qq.com", 0.5, "./afterUrls/");
          try {
-            core.startProcess("/home/lisheng/work/ExperData/preProcessData/clusterUrl");
+            core.startProcess("./urls/");
         } catch (IOException e) {
             e.printStackTrace();
         }
