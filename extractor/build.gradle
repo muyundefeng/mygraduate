@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    compile project(':toolUtils')
+
     def langVersion = "3.3.2"
     def collectionVersion = "3.2.1"
     def logVersion = "1.6.1"

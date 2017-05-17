@@ -2,9 +2,11 @@ package myClusterByClass;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.PropertiesUtils;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Properties;
 
 /**
  * 处理url将url做一个大体的聚类分析
@@ -15,6 +17,8 @@ import java.net.URL;
 public class URLCluster {
 
     public static Logger logger = LoggerFactory.getLogger(URLCluster.class);
+
+    public static final String SUFFIX = ".com";
 
     /**
      * @param urlFile  hadoop提取出的url记录
@@ -52,11 +56,23 @@ public class URLCluster {
         }
     }
 
-    public static void main(String[] args) {
+    public static void start() {
         try {
-            readUrlFromFile("./url/part-r-00000", "qq.com", "./urls/");
+            readUrlFromFile(PropertiesUtils.getGeneralClusterInputpath(), SUFFIX, PropertiesUtils.getGeneralClusterOuputpath());
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
     }
+
+//    public static void main(String[] args) {
+//        start();
+//    }
+//
+//    public static void main(String[] args) {
+//        try {
+//            readUrlFromFile("./url/part-r-00000", "qq.com", "./urls/");
+//        } catch (IOException e) {
+//            logger.error(e.getMessage());
+//        }
+//    }
 }

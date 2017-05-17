@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    compile project(':toolUtils')
+
     def hadoopVersion = "2.6.0"
     def logVersion = "1.6.1"
     def self_logVersion = "1.7.7"

@@ -59,7 +59,6 @@ public class ProcessHtmlUtils {
         html = html.replaceAll("<em>", "");
         html = html.replaceAll("</em>", "");
         html = html.replaceAll("<(/)?h[^>]*>", "");
-//        html = html.replaceAll("</[^>]*>", "");
         html = html.replaceAll("(?is)<iframe[^>]*>", "");
         String aLabel1 = ExtraMainBodyUtils.extraMainBody(html, "<a>");//根据文本块进行判断
         String labels[] = aLabel1.split("\\n");
@@ -70,11 +69,11 @@ public class ProcessHtmlUtils {
         html = "";
         for (String seg : segs) {
             html += rmSomeNoisy(seg) + "\n";
-            if (html.contains("footer"))
+            if (html.contains("footer")||html.contains("foot")||html.contains("编辑"))
                 break;
         }
         html = html.replaceAll("\\n", "");
-        html = html.replaceAll("\\s", "");
+        html = html.replaceAll("\\s*", "");
 
         //提取出有元素的数据
         String extraEleData = "(?i)<[^>]+>[^<]+<[^>]+>";
@@ -95,9 +94,9 @@ public class ProcessHtmlUtils {
         else
             return str;
     }
-
-    public static void main(String[] args) {
-        String str = "<iframe src=\"http://v.qq.com/video/playview.html?vid=o0500gf4ps0\" width=\"0\" height=\"0\" style=\"display:none;\"></iframe>";
-        System.out.println(rmSomeScript(str));
-    }
+//
+//    public static void main(String[] args) {
+//        String str = "<iframe src=\"http://v.qq.com/video/playview.html?vid=o0500gf4ps0\" width=\"0\" height=\"0\" style=\"display:none;\"></iframe>";
+//        System.out.println(rmSomeScript(str));
+//    }
 }

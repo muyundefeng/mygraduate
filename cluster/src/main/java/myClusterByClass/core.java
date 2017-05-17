@@ -2,6 +2,8 @@ package myClusterByClass;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.DownloadUtils;
+import utils.PropertiesUtils;
 
 import java.io.*;
 import java.util.*;
@@ -29,6 +31,8 @@ public class core {
 
     public Set<String> set = new HashSet<String>();
 
+    public static final String FILTER_WORD = ".com";
+
     public core(int bound, String hostName, double thresh_hold, String savePath) {
         fileNameGenerateUtils = new FileNameGenerateUtils(bound);
         this.hostname = hostName;
@@ -43,6 +47,12 @@ public class core {
         logger.info("start to process path");
         File catalog = new File(path);
         File subFiles[] = catalog.listFiles();//得到目录中所有文件
+        if (subFiles.length == 1) {
+            String fileName = fileNameGenerateUtils.getFileName();
+            String file2Content = readUrlFromFile(subFiles[0].getAbsolutePath(), false);
+            writeUrlToFile(fileName, file2Content);
+            delFile(subFiles[0].getAbsolutePath());
+        }
         for (File file : subFiles) {
             String path1 = file.getPath();//得到文件的路径
             queue.add(path1);
@@ -63,7 +73,7 @@ public class core {
                     //如果返回为true,需要将这个两类文件聚类为一起
                     if (calculateSimilar(srcClassProperty, targetClassProperty)) {
                         if (set.add(sourceFile)) {
-                            System.out.println("sourcefile is "+sourceFile+"----------------");
+                            System.out.println("sourcefile is " + sourceFile + "----------------");
                             String file1Content = readUrlFromFile(sourceFile, false);
                             writeUrlToFile(fileName, file1Content);
                         }
@@ -213,10 +223,10 @@ public class core {
         file.delete();
     }
 
-    public static void main(String[] args) {
-        core core = new core(1000, "qq.com", 0.5, "./afterUrls/");
-         try {
-            core.startProcess("./urls/");
+    public static void start() {
+        core core = new core(1000, FILTER_WORD, 0.8, PropertiesUtils.getFineClusterOuputpath());
+        try {
+            core.startProcess(PropertiesUtils.getGeneralClusterOuputpath());
         } catch (IOException e) {
             e.printStackTrace();
         }

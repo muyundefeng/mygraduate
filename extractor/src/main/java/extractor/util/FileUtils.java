@@ -2,8 +2,12 @@ package extractor.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import utils.DownloadUtils;
 
 import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lisheng on 17-5-16.
@@ -12,7 +16,8 @@ public class FileUtils {
 
     public static Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-    public static final String hostname = "qq.com";
+    public static String hostname;
+
 
     /**
      * @param savepath  存放html文件路径
@@ -27,7 +32,7 @@ public class FileUtils {
             File file = new File(path);
             if (!file.exists())
                 file.createNewFile();
-            out = new FileOutputStream(file, true); //如果追加方式用true
+            out = new FileOutputStream(file); //如果追加方式用true
             sb = new StringBuffer();
             sb.append(content);
             out.write(sb.toString().getBytes("utf-8"));//注意需要转换对应的字符集
@@ -44,7 +49,6 @@ public class FileUtils {
         logger.info("end writing to file html");
     }
 
-    @SuppressWarnings("Duplicates")
     public static String readUrlFromFile(String path) throws IOException {
         logger.info("read url from file=" + path);
         String content = "";
@@ -52,9 +56,12 @@ public class FileUtils {
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader in = new BufferedReader(isr);
         String line = "";
-        int count = 0;
+        int count = 0;//只需要从一个url文件中提取出两个url链接就可以1
+        String myline = in.readLine();
+        URL url = new URL(myline);
+        hostname = url.getHost();
         while ((line = in.readLine()) != null) {
-            if (isDetail(line)) {
+            if (line.length() > 0 && isDetail(line) && DownloadUtils.download(line) != null) {
                 content += line + "\n";
                 count++;
             }
@@ -63,7 +70,6 @@ public class FileUtils {
         }
         isr.close();
         is.close();
-        logger.info("content=" + content);
         return content;
     }
 
@@ -74,5 +80,21 @@ public class FileUtils {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 得到文件夹下的文件列表
+     *
+     * @param path
+     * @return
+     */
+    public static List<String> getFileName(String path) throws IOException {
+        File file = new File(path);
+        File[] files = file.listFiles();
+        List<String> names = new ArrayList<>();
+        for (File file1 : files) {
+            names.add(file1.getCanonicalPath());
+        }
+        return names;
     }
 }

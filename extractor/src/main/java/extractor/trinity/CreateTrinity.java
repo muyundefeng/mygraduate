@@ -89,7 +89,6 @@ public class CreateTrinity {
                 for (Text text : node2.getTexts()) {
                     logger.info("前缀节点元素为:" + text.getText() + " ");
                 }
-                System.out.println();
                 if (isNotVaribaleLeave(node.getPreffixNode())) {
                     logger.info("从前缀开始分裂节点");
                     createTrinity(rebuildNode(node2), size + 1, Min);
@@ -100,7 +99,6 @@ public class CreateTrinity {
                 for (Text text : node2.getTexts()) {
                     logger.info("分隔符节点元素为:" + text.getText() + " ");
                 }
-                System.out.println();
                 if (isNotVaribaleLeave(node.getSeparatorNode())) {
                     logger.info("从分隔符开始分裂节点");
                     logger.info("Min=" + Min);
@@ -113,7 +111,6 @@ public class CreateTrinity {
                 for (Text text : node2.getTexts()) {
                     logger.info("后缀节点元素为:" + text.getText() + " ");
                 }
-                System.out.println();
                 if (isNotVaribaleLeave(node.getSuffixNode())) {
                     logger.info("从后缀开始分裂节点");
                     createTrinity(rebuildNode(node2), size + 1, Min);
@@ -517,6 +514,6 @@ public class CreateTrinity {
         Pattern pattern = new Pattern();
         pattern.setString("</title>\n" +
                 "<div>");
-        System.out.println(computeSuffix(str, list, pattern));
+//        System.out.println(computeSuffix(str, list, pattern));
     }
 }

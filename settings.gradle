@@ -4,4 +4,6 @@ include 'logAnalyser'
 include 'cluster'
 include 'extractor'
 include 'webShow'
+include 'triggerExe'
+include 'toolUtils'
 

@@ -41,6 +41,8 @@ public class Spider {
 
     public final Condition waitForComplete = lock.newCondition();
 
+    public String endFlag = "0";
+
 
     public Spider() {
         downloader = new MyHttpClinetDownloader();
@@ -76,15 +78,16 @@ public class Spider {
     public void start() {
         logger.info("start crawling");
         while (true) {
-            if (seedRequest.isEmpty()&&pool.getAliveThread() == 0) {
-                if(waitForNewUrl())
+            if (seedRequest.isEmpty() && pool.getAliveThread() == 0) {
+                if (waitForNewUrl())
                     break;
             } else {
-                if(!seedRequest.isEmpty()) {
+                if (!seedRequest.isEmpty()) {
                     pool.execute(this.woker);
                 }
             }
         }
+        endFlag = "1";
         logger.info("end crawling");
         pool.shudown();
     }
@@ -104,14 +107,13 @@ public class Spider {
         return isOver;
     }
 
-    public void waitForComplete(){
+    public void waitForComplete() {
         lock.lock();
         try {
-            waitForComplete.await(300,TimeUnit.MILLISECONDS);
+            waitForComplete.await(300, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }

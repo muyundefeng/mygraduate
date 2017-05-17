@@ -17,8 +17,6 @@ import java.util.List;
  */
 public class InputDocument {
 
-//    private static final String FILE_DIR = "/home/lisheng/work/ExperData/htmls/people/";
-
     private static Logger logger = LoggerFactory.getLogger(InputDocument.class);
 
     /**

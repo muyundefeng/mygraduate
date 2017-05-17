@@ -59,32 +59,14 @@ public class ExtraMainBodyUtils {
             StringBuilder tmp = new StringBuilder();
             if (boolend) {
                 for (int ii = start; ii <= end; ii++) {
-                    if (lines.get(ii).length() < 5) continue;
+                    if (lines.get(ii).length() < 3) continue;
                     tmp.append(lines.get(ii) + "\n");
                 }
                 String str = tmp.toString();
-                if (str.contains("Copyright")) continue;
                 text.append(str);
                 boolstart = boolend = false;
             }
         }
         return text.toString();
-    }
-
-    public static void main(String[] args) {
-        String str = "<a>水电外送消纳矛盾暗涌西南\"弃水\"形势严峻</a>\n" +
-                "<a>发改委：今年煤炭去产能将超1.5亿吨地条钢退出</a>\n" +
-                "<a>专家谈勒索病毒：获利渠道不切断可能还会遭攻击</a>\n" +
-                "<a>微整形市场“潜规则”：兜售针剂推荐工作室注射</a>\n" +
-                "<a>贫困女大学生3年捐2万自己每个月花不到两百</a>\n" +
-                "<a>药品零加成政策落地“有喜有忧”医院“倒贴”补缺</a>\n" +
-                "<a>破解以药养医须坚持“三医联动”</a>\n" +
-                "<a>银监会：房地产贷款风险在可控范围内</a>\n" +
-                "<a>“市场调整+监管风暴”下险资何去何从</a>\n" +
-                "<a>1883只个股“跌破”熔断时价格暴风跌7成</a>\n" +
-                "<li>客户端</li>\n" +
-                "<li>搜索</li>\n" +
-                "<li>频道</li>";
-        System.out.println(extraMainBody(str, "<a>"));
     }
 }

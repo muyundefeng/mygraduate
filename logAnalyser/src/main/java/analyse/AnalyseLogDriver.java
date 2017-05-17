@@ -36,9 +36,9 @@ public class AnalyseLogDriver extends Configured implements Tool {
         return job.waitForCompletion(true)?0:1;
     }
 
-    public static void main(String[] args) throws Exception {
-        String str[]= {"./log/spider/log/log.log","./url"};
-        int exitcode = ToolRunner.run(new AnalyseLogDriver(),str);
-        System.exit(exitcode);
-    }
+//    public static void main(String[] args) throws Exception {
+//        String str[]= {"./log/spider/log/log.log","./url"};
+//        int exitcode = ToolRunner.run(new AnalyseLogDriver(),str);
+//        System.exit(exitcode);
+//    }
 }
