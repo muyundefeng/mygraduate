@@ -47,4 +47,7 @@ public interface HtmlsMapper {
     int updateByPrimaryKey(Htmls record);
 
     Htmls selectByUrl(String url);
+
+    List<Htmls> selectByChannelId(Integer channleId);
+
 }

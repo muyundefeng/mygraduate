@@ -21,5 +21,6 @@
     <mappers>
         <mapper resource="mapper/HtmlsMapper.xml"/>
         <mapper resource="mapper/ClusterMapper.xml"/>
+        <mapper resource="mapper/ChannelMapper.xml"/>
     </mappers>
 </configuration>

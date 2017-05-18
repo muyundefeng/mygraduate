@@ -1,6 +1,8 @@
 package DAO.dao;
 
+import DAO.entity.Channel;
 import DAO.entity.Cluster;
+import DAO.mapper.ChannelMapper;
 import DAO.mapper.ClusterMapper;
 import DAO.session.SqlseesionBuilder;
 import DAO.entity.Htmls;
@@ -49,6 +51,21 @@ public class SaveDB {
             sqlSession.close();
 
         } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    public static void updateChannelId(int channelId, String regex) {
+        try {
+            SqlSession sqlSession = SqlseesionBuilder.getSession();
+            ChannelMapper channelMapper = sqlSession.getMapper(ChannelMapper.class);
+            Channel channel = channelMapper.selectByPrimaryKey(channelId);
+            channel.setRegex(regex);
+            channelMapper.updateByPrimaryKey(channel);
+            sqlSession.commit();
+            sqlSession.close();
+        } catch (Exception e) {
+            e.printStackTrace();
             logger.error(e.getMessage());
         }
     }

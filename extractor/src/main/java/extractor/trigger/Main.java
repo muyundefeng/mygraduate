@@ -1,7 +1,9 @@
 package extractor.trigger;
 
 import DAO.dao.ReadFromDB;
+import DAO.dao.SaveDB;
 import DAO.entity.Cluster;
+import DAO.entity.Htmls;
 import extractor.input.InputDocument;
 import extractor.test.TestTrinity;
 import extractor.trinity.CreateTrinity;
@@ -36,8 +38,11 @@ public class Main {
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             List<String> list = entry.getValue();
             List<Text> texts = new ArrayList<>();
+            int channelId = 0;
             for (String url : list) {
-                texts.add(new Text(ReadFromDB.getHtmlsByUrl(url).getProcesscontent()));
+                Htmls htmls = ReadFromDB.getHtmlsByUrl(url);
+                texts.add(new Text(htmls.getProcesscontent()));
+                channelId = htmls.getChannelId();
             }
             Node node = new Node();
             node.setTexts(texts);
@@ -49,17 +54,8 @@ public class Main {
             LearnTemplate learnTemplate = new LearnTemplate();
             String regex = learnTemplate.learnTemplate(node, "");//提取正则表达式
             logger.info("regex=" + regex);
-            List<String> regexs = CutRegexUtils.getRegexs(regex, texts.get(0).getText());
-            logger.info("cut rehgex is=" + regexs);
-            logger.info("使用提取的正则表达式进行文本获取");
-            // regex = ParseRegexUtils.cutRegex(regex);
-            for (String regex1 : regexs) {
-                int groupNumbers = ParseRegexUtils.analyseNumberGroup(regex1);
-                regex1 = ParseRegexUtils.getNormalRegex(regex1, regexs.size());
-                for (int i = 1; i <= groupNumbers; i++) {
-                    System.out.println(ParseRegexUtils.extraText(regex1, i, texts.get(0).getText()));
-                }
-            }
+
+            SaveDB.updateChannelId(channelId, regex);
         }
     }
 

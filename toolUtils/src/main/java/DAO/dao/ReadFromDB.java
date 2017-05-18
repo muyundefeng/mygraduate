@@ -1,7 +1,9 @@
 package DAO.dao;
 
+import DAO.entity.Channel;
 import DAO.entity.Cluster;
 import DAO.entity.Htmls;
+import DAO.mapper.ChannelMapper;
 import DAO.mapper.ClusterMapper;
 import DAO.mapper.HtmlsMapper;
 import DAO.session.SqlseesionBuilder;
@@ -67,6 +69,24 @@ public class ReadFromDB {
         Htmls htmls = htmlsMapper.selectByUrl(url);
         sqlSession.close();
         return htmls;
+    }
+
+    public static List<Channel> getChannels() {
+        SqlSession sqlSession = SqlseesionBuilder.getSession();
+        ChannelMapper channelMapper = sqlSession.getMapper(ChannelMapper.class);
+        return channelMapper.selectAll();
+    }
+
+    public static List<String> getText(int channelId) {
+        SqlSession sqlseesion = SqlseesionBuilder.getSession();
+        HtmlsMapper htmlsMapper = sqlseesion.getMapper(HtmlsMapper.class);
+        List<Htmls> htmls = htmlsMapper.selectByChannelId(channelId);
+        List<String> texts = new ArrayList<>();
+        for (Htmls htmls1 : htmls) {
+            texts.add(htmls1.getProcesscontent());
+        }
+        sqlseesion.close();
+        return texts;
     }
 
 }
