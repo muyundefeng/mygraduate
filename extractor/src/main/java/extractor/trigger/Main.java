@@ -1,5 +1,7 @@
 package extractor.trigger;
 
+import DAO.dao.ReadFromDB;
+import DAO.entity.Cluster;
 import extractor.input.InputDocument;
 import extractor.test.TestTrinity;
 import extractor.trinity.CreateTrinity;
@@ -15,7 +17,7 @@ import utils.DownloadUtils;
 import utils.PropertiesUtils;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * 出发文件下载以及信息提取
@@ -26,28 +28,16 @@ public class Main {
     public static Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void start() throws IOException {
-        logger.info("start executing building trinity and generate regex!");
-        List<String> filePaths = FileUtils.getFileName(PropertiesUtils.getExtractorInputpath());
-        for (String filePath : filePaths) {
-            try {
-                logger.info("start reading url from file!");
-                String urlRaw = FileUtils.readUrlFromFile(filePath);
-                String urls[] = urlRaw.split("\\n");
-                int count = 0;
-                for (String url : urls) {
-                    String html = DownloadUtils.download(url);
-                    logger.info("writing html string to file!");
-                    FileUtils.savetoFile(html, PropertiesUtils.getExtractorOuputpath(), "" + (count++) + ".html");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            List<Text> texts = null;
-            try {
-                texts = InputDocument.getDefaultReadHtml("./Html/");//每个文件形成一条Txt
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        List<String> clusterId = ReadFromDB.getClusterIds();
+        Set<String> set = new HashSet<>();
+        set.addAll(clusterId);
+        Map<String, List<String>> map = ReadFromDB.getTwoUrl(set);
+        System.out.println(map);
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            List<String> list = entry.getValue();
+            List<Text> texts = new ArrayList<>();
+            for (String url : list) {
+                texts.add(new Text(ReadFromDB.getHtmlsByUrl(url).getProcesscontent()));
             }
             Node node = new Node();
             node.setTexts(texts);

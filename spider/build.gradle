@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    compile project(':toolUtils')
+
     def httpclientVersion = "4.3.5"
     def ioVersion = "2.3"
     def guavaVersion = "19.0"
@@ -22,6 +24,7 @@ dependencies {
     def xsoupVersion = "0.3.1"
     def jsonPathVersion = "0.8.1"
 
+
     compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
     compile "commons-io:commons-io:${ioVersion}"
     compile "com.google.guava:guava:${guavaVersion}"
@@ -33,6 +36,8 @@ dependencies {
     compile "com.alibaba:fastjson:${fastJsonVersion}"
     compile "us.codecraft:xsoup:${xsoupVersion}"
     compile "com.jayway.jsonpath:json-path:${jsonPathVersion}"
+
+
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

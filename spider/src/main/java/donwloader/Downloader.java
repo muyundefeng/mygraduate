@@ -9,4 +9,6 @@ import spider.selector.Request;
  */
 public interface Downloader {
     public Page download(Request request);
+
+    public void setChannelId(String channelId);
 }

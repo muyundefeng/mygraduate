@@ -1,6 +1,7 @@
 package myschedule;
 
 
+import db.SaveToDB;
 import donwloader.Downloader;
 import donwloader.MyHttpClinetDownloader;
 import org.slf4j.Logger;
@@ -43,6 +44,8 @@ public class Spider {
 
     public String endFlag = "0";
 
+    public String channelId;
+
 
     public Spider() {
         downloader = new MyHttpClinetDownloader();
@@ -51,11 +54,14 @@ public class Spider {
     }
 
     public Spider initWoker() {
+        SaveToDB.initSet();
+        downloader.setChannelId(channelId);
         this.woker = buildWorker(downloader, pageProcessor, seedRequest);
         return this;
     }
 
     public Spider initChannelProcessor(String channelId) {
+        this.channelId = channelId;
         channelsDom = new ChannelsDom(channelId);
         ChannelsDom.getChannelsDomById(channelId);
         this.pageProcessor = ChannelsDom.getChannelsDomById(channelId).getPagePro();

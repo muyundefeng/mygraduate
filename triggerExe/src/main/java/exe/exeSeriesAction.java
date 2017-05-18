@@ -1,10 +1,8 @@
 package exe;
 
-import analyse.Trigger;
 import extractor.trigger.Main;
 import myClusterByClass.URLCluster;
 import myClusterByClass.core;
-import myschedule.Spider;
 
 import java.io.IOException;
 

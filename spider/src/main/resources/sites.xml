@@ -1,7 +1,7 @@
 <sites>
     <site id="1">
         <name>sina</name>
-        <homePage>http://news.xinhuanet.com/</homePage>
+        <homePage>http://news.sina.com.cn/</homePage>
         <pageProcessor>spider.pageprocessor.impl.SinaProcessor</pageProcessor>
         <urlEncoding>utf-8</urlEncoding>
     </site>

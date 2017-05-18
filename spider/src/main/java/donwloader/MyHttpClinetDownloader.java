@@ -1,5 +1,6 @@
 package donwloader;
 
+import db.SaveToDB;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import spider.constant.SPIDER_CONSTANT;
 import spider.selector.Page;
 import spider.selector.Request;
+import utils.DownloadUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +28,14 @@ public class MyHttpClinetDownloader implements Downloader {
 
     public Logger logger = LoggerFactory.getLogger(getClass());
 
+    public String channelId;
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
+
     public Page download(Request request) {
-        if(request == null)
+        if (request == null)
             return null;
         logger.info("start downloading url:" + request.getUrl());
         Page page = null;
@@ -41,7 +49,7 @@ public class MyHttpClinetDownloader implements Downloader {
             if (httpGet != null) {
                 HttpHost httpHost = new HttpHost(SPIDER_CONSTANT.PROXY_HOST, SPIDER_CONSTANT.PROXY_PORT);
                 RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES)
-//                        .setProxy(httpHost)
+                        .setProxy(httpHost)
                         .setConnectionRequestTimeout(SPIDER_CONSTANT.MAX_CONNECT_TIME_OUT)
                         .setSocketTimeout(SPIDER_CONSTANT.MAX_READ_TIME_OUT)
                         .build();
@@ -51,8 +59,13 @@ public class MyHttpClinetDownloader implements Downloader {
                     response = httpClient.execute(httpGet);
                     if (response.getStatusLine().getStatusCode() == 200) {
                         logger.info("download page successfully");
-                        InputStream inputStream = response.getEntity().getContent();
-                        String content = IOUtils.toString(inputStream, "utf-8");
+//                        InputStream inputStream = response.getEntity().getContent();
+                        byte[] contentBytes = IOUtils.toByteArray(response.getEntity()
+                                .getContent());
+                        String htmlCharset = DownloadUtils.getHtmlCharset(response, contentBytes);
+                        String content = new String(contentBytes, htmlCharset);
+//                        String content = IOUtils.toString(inputStream, "utf-8");
+                        SaveToDB.saveToDB(content, request.getUrl(), Integer.parseInt(channelId));
                         page = buildPage(content, request.getUrl());
                     }
                 } catch (IOException e) {

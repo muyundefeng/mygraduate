@@ -77,7 +77,7 @@ public class DownloadUtils {
         return content;
     }
 
-    protected static String getHtmlCharset(HttpResponse httpResponse,
+    public static String getHtmlCharset(HttpResponse httpResponse,
                                     byte[] contentBytes) throws IOException {
         String charset;
         String value = httpResponse.getEntity().getContentType().getValue();
