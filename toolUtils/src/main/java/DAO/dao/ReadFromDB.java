@@ -51,7 +51,7 @@ public class ReadFromDB {
             for (Cluster cluster : clusters) {
                 if (count == 2)
                     break;
-                else if (getHtmlsByUrl(cluster.getUrl()).getProcesscontent() != null) {
+                else if (getHtmlsByUrl(cluster.getUrl()).getProcesscontent() != null && isValidateUrl(cluster.getUrl())) {
                     twoUrls.add(cluster.getUrl());
                     count++;
                 } else {
@@ -77,16 +77,28 @@ public class ReadFromDB {
         return channelMapper.selectAll();
     }
 
-    public static List<String> getText(int channelId) {
+    public static Map<String, String> getText(int channelId) {
+        Map<String, String> map = new HashMap<>();
         SqlSession sqlseesion = SqlseesionBuilder.getSession();
         HtmlsMapper htmlsMapper = sqlseesion.getMapper(HtmlsMapper.class);
         List<Htmls> htmls = htmlsMapper.selectByChannelId(channelId);
         List<String> texts = new ArrayList<>();
         for (Htmls htmls1 : htmls) {
-            texts.add(htmls1.getProcesscontent());
+            map.put(htmls1.getUrl(), htmls1.getProcesscontent());
         }
         sqlseesion.close();
-        return texts;
+        return map;
     }
 
+    public static boolean isValidateUrl(String url) {
+        String pattern = ".*(/.+){4,}";
+        if (url.matches(pattern)) {
+            if (!url.contains("photo") && !url.contains("view") && !url.contains("tuku"))
+                return true;
+            else
+                return false;
+        } else {
+            return false;
+        }
+    }
 }

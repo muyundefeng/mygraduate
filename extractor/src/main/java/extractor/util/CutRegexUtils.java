@@ -43,10 +43,10 @@ public class CutRegexUtils {
                     }
                     String regexA = regex.substring(startIndex, endIdex + 2) + label;
                     startIndex += regexA.length();
-                    endIdex = regex.substring(startIndex).indexOf(".*")+startIndex;
+                    endIdex = regex.substring(startIndex).indexOf(".*") + startIndex;
                     regex = regex.trim();
-                    if(!regexA.contains("(")&&!regexA.matches(">.*")&&!regexA.startsWith(".*")) {
-                        regexs.add(regexA);
+                    if (!regexA.contains("(") && !regexA.matches(">.*") && !regexA.startsWith(".*")) {
+                        regexs.add(regexA.replace("热点新闻", ".*新闻"));
                     }
                 } else {
                     break;

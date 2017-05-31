@@ -5,4 +5,28 @@
         <pageProcessor>spider.pageprocessor.impl.SinaProcessor</pageProcessor>
         <urlEncoding>utf-8</urlEncoding>
     </site>
+    <site id="2">
+        <name>qq</name>
+        <homePage>http://news.qq.com/</homePage>
+        <pageProcessor>spider.pageprocessor.impl.SinaProcessor</pageProcessor>
+        <urlEncoding>utf-8</urlEncoding>
+    </site>
+    <site id="3">
+        <name>netease</name>
+        <homePage>http://news.163.com/</homePage>
+        <pageProcessor>spider.pageprocessor.impl.SinaProcessor</pageProcessor>
+        <urlEncoding>utf-8</urlEncoding>
+    </site>
+    <!--<site id="4">-->
+    <!--<name>凤凰网</name>-->
+    <!--<homePage>http://news.ifeng.com/</homePage>-->
+    <!--<pageProcessor>spider.pageprocessor.impl.SinaProcessor</pageProcessor>-->
+    <!--<urlEncoding>utf-8</urlEncoding>-->
+    <!--</site>-->
+    <site id="5">
+        <name>环球网</name>
+        <homePage>http://china.huanqiu.com/</homePage>
+        <pageProcessor>spider.pageprocessor.impl.SinaProcessor</pageProcessor>
+        <urlEncoding>utf-8</urlEncoding>
+    </site>
 </sites>

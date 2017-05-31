@@ -130,7 +130,7 @@ public class Spider {
     }
 
     public static void main(String[] args) {
-        String channelId = "1";
+        String channelId = "7";
         Spider spider = new Spider();
         spider.initChannelProcessor(channelId).initWoker().start();
     }

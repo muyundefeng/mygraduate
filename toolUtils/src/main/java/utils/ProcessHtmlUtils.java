@@ -13,6 +13,7 @@ public class ProcessHtmlUtils {
 
     public static final String regMetaCha[] = {"?", "^", "[", "]", "{", "}", "(", ")", "$", "+", ".", "*"};
 
+    @SuppressWarnings("Duplicates")
     public static String rmSomeScript(String html) {
         html = html.replaceAll("(?is)<!DOCTYPE.*?>", "");
         html = html.replaceAll("(?is)<!--.*?-->", "");
@@ -69,7 +70,7 @@ public class ProcessHtmlUtils {
         html = "";
         for (String seg : segs) {
             html += rmSomeNoisy(seg) + "\n";
-            if (html.contains("footer")||html.contains("foot")||html.contains("编辑"))
+            if (html.contains("footer") || html.contains("foot") || html.contains("编辑"))
                 break;
         }
         html = html.replaceAll("\\n", "");

@@ -22,11 +22,16 @@ public class InfoGet {
         logger.info("cut rehgex is=" + regexs);
         logger.info("使用提取的正则表达式进行文本获取");
         // regex = ParseRegexUtils.cutRegex(regex);
+        System.out.println("要提取的文本信息=" + text);
+
         for (String regex1 : regexs) {
             int groupNumbers = ParseRegexUtils.analyseNumberGroup(regex1);
             regex1 = ParseRegexUtils.getNormalRegex(regex1, regexs.size());
             for (int i = 1; i <= groupNumbers; i++) {
-                System.out.println(ParseRegexUtils.extraText(regex1, i, text));
+                List<String> raws = ParseRegexUtils.extraText(regex1, i, text);
+                for (String raw : raws) {
+                    System.out.println(raw.replaceAll("<[^>]*>", ""));
+                }
             }
         }
     }
@@ -35,9 +40,11 @@ public class InfoGet {
         List<Channel> channels = ReadFromDB.getChannels();
         for (Channel channel : channels) {
             String regex = channel.getRegex();
-            List<String> texts = ReadFromDB.getText(channel.getChannleId());
-            for (String text : texts) {
-                getInfo(regex, text);
+            Map<String, String> infos = ReadFromDB.getText(channel.getChannleId());
+
+            for (Map.Entry<String, String> entry : infos.entrySet()) {
+                logger.info("process url is=" + entry.getKey());
+                getInfo(regex, entry.getValue());
             }
         }
     }

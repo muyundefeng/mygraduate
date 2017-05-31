@@ -53,9 +53,9 @@ public class ParseRegexUtils {
      * @return 返回正常的正则表达式
      */
     public static String getNormalRegex(String str, int size) {
-        if (size != 1)
+        if (size != 1 && !str.endsWith(".*")) {
             str = str.replaceAll("\\.\\*", "([^<]*)");
-        else
+        } else
             str = str.replaceAll("\\.\\*", "(.*)");
         return str;
     }

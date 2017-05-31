@@ -34,7 +34,6 @@ public class Main {
         Set<String> set = new HashSet<>();
         set.addAll(clusterId);
         Map<String, List<String>> map = ReadFromDB.getTwoUrl(set);
-        System.out.println(map);
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             List<String> list = entry.getValue();
             List<Text> texts = new ArrayList<>();
